@@ -7,6 +7,21 @@
 
 @import "./fonts.scss";
 
+// theme css variables ------------------------------------
+@layer base {
+  :root {
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-transparent: transparent;
+    --color-blue-300: #93c5fd;
+    --color-blue-400: #60a5fa;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #0f172a;
+    --color-red-500: #ef4444;
+    --color-emerald-500: #10b981;
+  }
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }
