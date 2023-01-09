@@ -3,6 +3,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "animate.css";
+
 @import "./fonts.scss";
 
 * {
@@ -10,6 +12,5 @@
 }
 
 body {
-  background: theme("colors.slate.900");
   color: white;
 }
