@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+h1 {
+  font-size: theme("fontSize.5xl");
+  font-weight: theme("fontWeight.bold");
+}
+
+h2 {
+  font-size: theme("fontSize.4xl");
+  font-weight: theme("fontWeight.semibold");
+}
+
+h3 {
+  font-size: theme("fontSize.3xl");
+  font-weight: theme("fontWeight.medium");
+}
+
+h4 {
+  font-size: theme("fontSize.2xl");
+  font-weight: theme("fontWeight.medium");
+}
+
+h5 {
+  font-size: theme("fontSize.xl");
+  font-weight: theme("fontWeight.medium");
+}
+
+h6 {
+  font-size: theme("fontSize.lg");
+  font-weight: theme("fontWeight.medium");
+}
