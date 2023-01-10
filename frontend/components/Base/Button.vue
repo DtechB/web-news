@@ -1,7 +1,7 @@
 <template>
   <div
     class="BaseButton md:cursor-pointer transition-all xl:px-16 xl:py-4 lg:px-12 lg:py-3 px-8 py-2 rounded-full"
-    :style="{ backgroundColor }"
+    :style="{ backgroundColor, padding, margin }"
     @click="$emit('onClick')"
   >
     <div class="flex items-center justify-center">
@@ -47,6 +47,14 @@ const props = defineProps({
   backgroundIconColor: {
     type: String,
     default: "var(--color-slate-900)",
+  },
+  padding: {
+    type: String,
+    default: "8px 16px",
+  },
+  margin: {
+    type: String,
+    default: "0px",
   },
 });
 
