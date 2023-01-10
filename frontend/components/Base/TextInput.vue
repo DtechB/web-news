@@ -1,9 +1,9 @@
 <template>
   <div class="TextInput flex flex-col">
-    <h3 v-if="title" class="mb-3 mr-6 font-m">{{ title }}</h3>
+    <h3 v-if="title" class="mb-3 ml-6 font-m">{{ title }}</h3>
     <div class="relative">
       <input
-        :class="`dir-ltr w-full text-base sm:text-xl lg:text-2xl p-2 px-3 sm:px-6 sm:p-4 bg-transparent border-4 outline-none focus:border-blue-400hover:border-blue-400 peer font-m rounded-full
+        :class="`dir-ltr w-full text-base sm:text-xl lg:text-2xl p-2 px-3 sm:px-6 sm:p-4 bg-transparent border-[3px] outline-none focus:border-blue-400 hover:border-blue-400 peer font-m rounded-full
         ${errorMessage && 'border-red-500'}
         ${succeedMessage && 'border-emerald-500'}
         ${disabled && 'hover:cursor-not-allowed'}`"
@@ -33,8 +33,12 @@
         class="absolute right-3 sm:right-6 top-1/2 -translate-y-[50%] ml-1 sm:ml-[6px] lg:ml-2"
       />
     </div>
-    <h6 class="mt-2 mr-6 text-red-500">{{ errorMessage }}</h6>
-    <h6 class="mt-2 mr-6 text-emerald-500">{{ succeedMessage }}</h6>
+    <h6 v-if="errorMessage" class="mt-2 ml-6 text-red-500">
+      {{ errorMessage }}
+    </h6>
+    <h6 v-if="succeedMessage" class="mt-2 ml-6 text-emerald-500">
+      {{ succeedMessage }}
+    </h6>
   </div>
 </template>
 
@@ -47,6 +51,10 @@ const props = defineProps({
   type: {
     type: String,
     default: "text",
+  },
+  initValue: {
+    type: String,
+    default: "",
   },
   inputName: {
     type: String,
@@ -64,7 +72,7 @@ const props = defineProps({
 
 const emits = defineEmits(["onValueChange"]);
 
-const inputValue = ref<string>("");
+const inputValue = ref<string>(props.initValue);
 
 watch(
   () => inputValue.value,

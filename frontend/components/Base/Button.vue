@@ -1,26 +1,26 @@
 <template>
   <div
-    class="BaseButton md:cursor-pointer transition-all xl:px-16 xl:py-4 lg:px-12 lg:py-3 px-8 py-2 rounded-full"
+    class="BaseButton md:cursor-pointer transition-all xl:px-16 xl:py-4 lg:px-12 lg:py-3 px-8 py-2 rounded-full hover:scale-95"
     :style="{ backgroundColor, padding, margin }"
     @click="$emit('onClick')"
   >
-    <div class="flex items-center justify-center">
-      <AppIcon
+    <div class="flex items-center justify-center h-full">
+      <BaseIcon
         v-if="rightIconName"
         :name="rightIconName"
         :color="color"
         :backgroundColor="backgroundIconColor"
         size="30px"
       />
-      <h4
+      <h3
         v-if="text"
         class="text-button"
         :class="{ 'mx-4': leftIconName || rightIconName }"
         :style="{ color }"
       >
         {{ text }}
-      </h4>
-      <AppIcon
+      </h3>
+      <BaseIcon
         v-if="leftIconName"
         :name="leftIconName"
         :color="color"
@@ -42,7 +42,7 @@ const props = defineProps({
   },
   backgroundColor: {
     type: String,
-    default: "var(--color-blue-400)",
+    default: "var(--color-blue-300)",
   },
   backgroundIconColor: {
     type: String,
