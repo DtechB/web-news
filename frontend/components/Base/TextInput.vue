@@ -33,8 +33,12 @@
         class="absolute right-3 sm:right-6 top-1/2 -translate-y-[50%] ml-1 sm:ml-[6px] lg:ml-2"
       />
     </div>
-    <h6 class="mt-2 mr-6 text-red-500">{{ errorMessage }}</h6>
-    <h6 class="mt-2 mr-6 text-emerald-500">{{ succeedMessage }}</h6>
+    <h6 v-if="errorMessage" class="mt-2 ml-6 text-red-500">
+      {{ errorMessage }}
+    </h6>
+    <h6 v-if="succeedMessage" class="mt-2 ml-6 text-emerald-500">
+      {{ succeedMessage }}
+    </h6>
   </div>
 </template>
 
