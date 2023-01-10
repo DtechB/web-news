@@ -1,0 +1,75 @@
+<template>
+  <div class="TextInput flex flex-col">
+    <h3 v-if="title" class="mb-3 mr-6 font-m">{{ title }}</h3>
+    <div class="relative">
+      <input
+        :class="`dir-ltr w-full text-base sm:text-xl lg:text-2xl p-2 px-3 sm:px-6 sm:p-4 bg-transparent border-4 outline-none focus:border-blue-400hover:border-blue-400 peer font-m rounded-full
+        ${errorMessage && 'border-red-500'}
+        ${succeedMessage && 'border-emerald-500'}
+        ${disabled && 'hover:cursor-not-allowed'}`"
+        v-model="inputValue"
+        :id="inputName"
+        :name="inputName"
+        :type="type"
+        :placeholder="placeholder"
+        :required="required"
+        :disabled="disabled"
+        autoComplete="off"
+      />
+      <BaseIcon
+        v-if="succeedMessage"
+        name="check"
+        color="var(--color-emerald-500)"
+        size="30px"
+        border-radius="50%"
+        class="absolute right-3 sm:right-6 top-1/2 -translate-y-[50%] ml-1 sm:ml-[6px] lg:ml-2"
+      />
+      <BaseIcon
+        v-if="errorMessage"
+        name="close"
+        color="var(--color-red-500)"
+        size="30px"
+        border-radius="50%"
+        class="absolute right-3 sm:right-6 top-1/2 -translate-y-[50%] ml-1 sm:ml-[6px] lg:ml-2"
+      />
+    </div>
+    <h6 class="mt-2 mr-6 text-red-500">{{ errorMessage }}</h6>
+    <h6 class="mt-2 mr-6 text-emerald-500">{{ succeedMessage }}</h6>
+  </div>
+</template>
+
+<script setup lang="ts">
+const props = defineProps({
+  title: String,
+  errorMessage: String,
+  succeedMessage: String,
+  placeholder: String,
+  type: {
+    type: String,
+    default: "text",
+  },
+  inputName: {
+    type: String,
+    required: true,
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emits = defineEmits(["onValueChange"]);
+
+const inputValue = ref<string>("");
+
+watch(
+  () => inputValue.value,
+  (val) => {
+    emits("onValueChange", val);
+  }
+);
+</script>
