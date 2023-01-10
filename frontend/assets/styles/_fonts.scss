@@ -9,32 +9,99 @@ h6 {
   color: theme("colors.blue.300");
 }
 
+// h1 {
+//   font-size: theme("fontSize.5xl");
+//   font-weight: theme("fontWeight.bold");
+// }
+
+// h2 {
+//   font-size: theme("fontSize.4xl");
+//   font-weight: theme("fontWeight.semibold");
+// }
+
+// h3 {
+//   font-size: theme("fontSize.3xl");
+//   font-weight: theme("fontWeight.medium");
+// }
+
+// h4 {
+//   font-size: theme("fontSize.2xl");
+//   font-weight: theme("fontWeight.medium");
+// }
+
+// h5 {
+//   font-size: theme("fontSize.xl");
+//   font-weight: theme("fontWeight.medium");
+// }
+
+// h6 {
+//   font-size: theme("fontSize.lg");
+//   font-weight: theme("fontWeight.medium");
+// }
+
 h1 {
-  font-size: theme("fontSize.5xl");
+  font-size: 24px;
   font-weight: theme("fontWeight.bold");
 }
-
 h2 {
-  font-size: theme("fontSize.4xl");
+  font-size: 20px;
   font-weight: theme("fontWeight.semibold");
 }
-
 h3 {
-  font-size: theme("fontSize.3xl");
+  font-size: 18px;
   font-weight: theme("fontWeight.medium");
 }
-
 h4 {
-  font-size: theme("fontSize.2xl");
+  font-size: 16px;
   font-weight: theme("fontWeight.medium");
 }
-
 h5 {
-  font-size: theme("fontSize.xl");
+  font-size: 14px;
+  font-weight: theme("fontWeight.medium");
+}
+h6 {
+  font-size: 12px;
   font-weight: theme("fontWeight.medium");
 }
 
-h6 {
-  font-size: theme("fontSize.lg");
-  font-weight: theme("fontWeight.medium");
+@media screen and (min-width: 640px) {
+  h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 32px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  h4 {
+    font-size: 20px;
+  }
+  h5 {
+    font-size: 18px;
+  }
+  h6 {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  h1 {
+    font-size: 48px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+  h3 {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 24px;
+  }
+  h5 {
+    font-size: 20px;
+  }
+  h6 {
+    font-size: 16px;
+  }
 }
