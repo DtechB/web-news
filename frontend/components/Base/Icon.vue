@@ -8,16 +8,14 @@
       height: size,
       padding,
     }"
-    @click="$emit('onClick')"
+    @click="emits('onClick')"
   >
     <div
-      class="icon"
+      class="icon w-full h-full"
       :class="{ 'icon-hover': cursorPointer }"
       :style="[
-        { '-webkit-mask': `url(/_nuxt/icons/${name}.svg)` },
-        { mask: `url(/icons/${name}.svg)` },
-        { width: '100%' },
-        { height: '100%' },
+        { '-webkit-mask': `url(/_nuxt/assets/icons/${name}.svg)` },
+        { mask: `url(/_nuxt/assets/icons/${name}.svg)` },
         { backgroundColor: color },
       ]"
     ></div>
@@ -32,8 +30,15 @@ defineProps({
   backgroundColor: { type: String, default: "none" },
   borderRadius: { type: String, default: "50%" },
   cursorPointer: { type: Boolean, default: false },
-  padding: { type: String, default: "30px" },
+  padding: { type: String, default: "1px" },
 });
 
 const emits = defineEmits(["onClick"]);
 </script>
+
+<style scoped>
+.icon {
+  background-size: cover;
+  mask-repeat: no-repeat !important;
+}
+</style>
