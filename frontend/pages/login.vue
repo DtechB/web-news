@@ -1,5 +1,7 @@
 <template>
-  <div class="LoginPageCard flex flex-col xl:flex-row gap-5 overflow-hidden">
+  <div
+    class="LoginPageCard flex flex-col-reverse xl:flex-row gap-5 overflow-hidden"
+  >
     <!------------ left section ------------>
     <div
       class="w-full xl:w-1/2 bg-slate-800 rounded-[40px] sm:px-16 sm:py-10 p-6 flex flex-col justify-between animate__animated animate__zoomIn"
