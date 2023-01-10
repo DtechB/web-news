@@ -30,7 +30,11 @@
       <div
         class="flex w-full justify-center animate__animated animate__bounceInUp"
       >
-        <BaseButtonGroup leftButtonText="Login" rightButtonText="Register" />
+        <BaseButtonGroup
+          leftButtonText="Login"
+          rightButtonText="Register"
+          @on-right-button-click="navigateTo('/register')"
+        />
       </div>
     </div>
     <!------------ right section ------------>
