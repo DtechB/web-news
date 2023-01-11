@@ -17,14 +17,20 @@
         title="Email"
         type="text"
         placeholder="example@gmail.com"
-        class="mb-4 sm:mb-10 animate__animated animate__bounceInLeft"
+        class="mb-4 sm:mb-6 animate__animated animate__bounceInLeft"
+        :error-message="userData.email.errorMessage"
+        :succeed-message="userData.email.suceedMessage"
+        @on-value-change="changeEmailValue"
       />
       <BaseTextInput
         inputName="password"
         title="Password"
         type="password"
         placeholder="Password"
-        class="mb-4 sm:mb-10 animate__animated animate__bounceInLeft"
+        class="mb-4 sm:mb-6 animate__animated animate__bounceInLeft"
+        :error-message="userData.password.errorMessage"
+        :succeed-message="userData.password.suceedMessage"
+        @on-value-change="changePasswordValue"
       />
       <BaseTextInput
         inputName="agreed"
@@ -32,6 +38,9 @@
         type="password"
         placeholder="Password confirm"
         class="mb-5 sm:mb-12 animate__animated animate__bounceInLeft"
+        :error-message="userData.agreed.errorMessage"
+        :succeed-message="userData.agreed.suceedMessage"
+        @on-value-change="changeAgreedValue"
       />
       <!------------ login or register buttons ------------>
       <div
@@ -63,7 +72,61 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from "vue";
+
+import * as regex from "@/constants/regex";
+import { RegisterData } from "@/constants/types";
+
 definePageMeta({
   layout: "auth-layout",
 });
+
+// plugin and composable variables -----------------------------------------------
+
+// data variables -----------------------------------------------------------------
+const userData: Ref<RegisterData> = ref({
+  email: { value: "", errorMessage: "", suceedMessage: "" },
+  password: { value: "", errorMessage: "", suceedMessage: "" },
+  agreed: { value: "", errorMessage: "", suceedMessage: "" },
+});
+
+// lifecycle hooks --------------------------------------------------------------
+
+// internall functions ----------------------------------------------------------
+const changeEmailValue = (email: string) => {
+  userData.value.email.value = email;
+  if (regex.email.test(userData.value.email.value)) {
+    userData.value.email.suceedMessage = "valid email";
+    userData.value.email.errorMessage = "";
+  } else {
+    userData.value.email.suceedMessage = "";
+    userData.value.email.errorMessage = "invalid email";
+  }
+};
+
+const changePasswordValue = (pass: string) => {
+  userData.value.password.value = pass;
+  if (regex.password.test(userData.value.password.value)) {
+    userData.value.password.suceedMessage = "valid password";
+    userData.value.password.errorMessage = "";
+  } else {
+    userData.value.password.suceedMessage = "";
+    userData.value.password.errorMessage =
+      "atleast: 1 uppercase letter, 1 lowercase letter, 8 length";
+  }
+};
+
+const changeAgreedValue = (pass: string) => {
+  userData.value.agreed.value = pass;
+  if (pass === userData.value.password.value) {
+    userData.value.agreed.suceedMessage = "password and confirmation are same";
+    userData.value.agreed.errorMessage = "";
+  } else {
+    userData.value.agreed.suceedMessage = "";
+    userData.value.agreed.errorMessage =
+      "password and confirmation aren't same";
+  }
+};
+
+// watchers ----------------------------------------------------------
 </script>

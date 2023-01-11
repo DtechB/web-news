@@ -17,7 +17,6 @@
         title="Email"
         type="text"
         placeholder="example@gmail.com"
-        succeed-message="valid nice!"
         class="animate__animated animate__bounceInLeft"
       />
       <BaseTextInput
@@ -26,7 +25,6 @@
         type="password"
         placeholder="Password"
         class="mb-3 animate__animated animate__bounceInLeft"
-        error-message="wrong password"
       />
       <!------------ login or register buttons ------------>
       <div
