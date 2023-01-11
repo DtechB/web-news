@@ -16,3 +16,13 @@ export function _register(data: ApiRegisterData) {
     data: data,
   });
 }
+
+export function _getUser(token: string) {
+  return request({
+    url: "auth/users/me/",
+    method: "get",
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  });
+}

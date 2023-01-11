@@ -11,7 +11,7 @@ export interface RegisterData {
 }
 
 export interface ApiLoginData {
-  email: string;
+  username: string;
   password: string;
 }
 
