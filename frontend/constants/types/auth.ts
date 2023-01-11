@@ -9,3 +9,14 @@ export interface RegisterData {
   password: InputFieldData;
   agreed: InputFieldData;
 }
+
+export interface ApiLoginData {
+  email: string;
+  password: string;
+}
+
+export interface ApiRegisterData {
+  email: string;
+  username: string;
+  password: string;
+}
