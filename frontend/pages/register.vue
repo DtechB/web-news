@@ -50,6 +50,7 @@
           leftButtonText="Register"
           rightButtonText="Login"
           @on-right-button-click="navigateTo('/login')"
+          @on-leftt-button-click="register"
         />
       </div>
     </div>
@@ -73,8 +74,10 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
+import { useToast } from "vue-toastification";
 
 import * as regex from "@/constants/regex";
+import { _register } from "@/api/auth";
 import { RegisterData } from "@/constants/types";
 
 definePageMeta({
@@ -82,6 +85,7 @@ definePageMeta({
 });
 
 // plugin and composable variables -----------------------------------------------
+const toast = useToast();
 
 // data variables -----------------------------------------------------------------
 const userData: Ref<RegisterData> = ref({
@@ -89,8 +93,6 @@ const userData: Ref<RegisterData> = ref({
   password: { value: "", errorMessage: "", suceedMessage: "" },
   agreed: { value: "", errorMessage: "", suceedMessage: "" },
 });
-
-// lifecycle hooks --------------------------------------------------------------
 
 // internall functions ----------------------------------------------------------
 const changeEmailValue = (email: string) => {
@@ -128,5 +130,25 @@ const changeAgreedValue = (pass: string) => {
   }
 };
 
-// watchers ----------------------------------------------------------
+const register = async () => {
+  if (
+    !!userData.value.email.errorMessage ||
+    !!userData.value.password.errorMessage ||
+    !!userData.value.agreed.errorMessage
+  )
+    return;
+
+  await _register({
+    email: userData.value.email.value,
+    username: userData.value.email.value,
+    password: userData.value.password.value,
+  })
+    .then((res) => {
+      toast.success("user account successfully created please login");
+      navigateTo("/login");
+    })
+    .catch((err) => {
+      toast.error(err.response.data.username[0]);
+    });
+};
 </script>

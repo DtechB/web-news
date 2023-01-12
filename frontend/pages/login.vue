@@ -77,8 +77,6 @@ const toast = useToast();
 const userData: Ref<LoginData> = ref({ email: "", password: "" });
 const loading: Ref<boolean> = ref(false);
 
-// lifecycle hooks --------------------------------------------------------------
-
 // internall functions ----------------------------------------------------------
 const changeEmailValue = (email: string) => {
   userData.value.email = email;
