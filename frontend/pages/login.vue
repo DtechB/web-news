@@ -4,40 +4,52 @@
   >
     <!------------ left section ------------>
     <div
-      class="w-full xl:w-1/2 bg-slate-800 rounded-[40px] sm:px-16 sm:py-10 p-6 flex flex-col justify-between animate__animated animate__zoomIn"
+      class="w-full xl:w-1/2 bg-slate-800 rounded-[40px] animate__animated animate__zoomIn relative"
     >
-      <h2
-        class="font-m mb-5 sm:mb-12 text-center animate__animated animate__bounceInDown"
-      >
-        Login to your account
-      </h2>
-      <!------------ input fields ------------>
-      <BaseTextInput
-        inputName="email"
-        title="Email"
-        type="text"
-        placeholder="example@gmail.com"
-        class="animate__animated animate__bounceInLeft"
-        @on-value-change="changeEmailValue"
-      />
-      <BaseTextInput
-        inputName="password"
-        title="Password"
-        type="password"
-        placeholder="Password"
-        class="mb-3 animate__animated animate__bounceInLeft"
-        @on-value-change="changePasswordValue"
-      />
-      <!------------ login or register buttons ------------>
-      <div
-        class="flex w-full justify-center animate__animated animate__bounceInUp"
-      >
-        <BaseButtonGroup
-          leftButtonText="Login"
-          rightButtonText="Register"
-          @on-right-button-click="navigateTo('/register')"
-          @on-leftt-button-click="login"
+      <div v-if="loading" class="overlay rounded-[40px]">
+        <BaseIcon
+          name="loading"
+          size="80px"
+          color="var(--color-blue-300)"
+          class="animate-spin"
         />
+      </div>
+      <div
+        class="w-full h-full sm:px-16 sm:py-10 p-6 flex flex-col justify-between"
+      >
+        <h2
+          class="font-m mb-5 sm:mb-12 text-center animate__animated animate__bounceInDown"
+        >
+          Login to your account
+        </h2>
+        <!------------ input fields ------------>
+        <BaseTextInput
+          inputName="email"
+          title="Email"
+          type="text"
+          placeholder="example@gmail.com"
+          class="animate__animated animate__bounceInLeft"
+          @on-value-change="changeEmailValue"
+        />
+        <BaseTextInput
+          inputName="password"
+          title="Password"
+          type="password"
+          placeholder="Password"
+          class="mb-3 animate__animated animate__bounceInLeft"
+          @on-value-change="changePasswordValue"
+        />
+        <!------------ login or register buttons ------------>
+        <div
+          class="flex w-full justify-center animate__animated animate__bounceInUp"
+        >
+          <BaseButtonGroup
+            leftButtonText="Login"
+            rightButtonText="Register"
+            @on-right-button-click="navigateTo('/register')"
+            @on-leftt-button-click="login"
+          />
+        </div>
       </div>
     </div>
     <!------------ right section ------------>

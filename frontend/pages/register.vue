@@ -4,8 +4,16 @@
   >
     <!------------ left section ------------>
     <div
-      class="w-full xl:w-1/2 bg-slate-800 rounded-[40px] sm:px-16 sm:py-10 p-6 animate__animated animate__zoomIn"
+      class="w-full xl:w-1/2 bg-slate-800 rounded-[40px] sm:px-16 sm:py-10 p-6 animate__animated animate__zoomIn relative"
     >
+      <div v-if="loading" class="overlay rounded-[40px]">
+        <BaseIcon
+          name="loading"
+          size="80px"
+          color="var(--color-blue-300)"
+          class="animate-spin"
+        />
+      </div>
       <h2
         class="font-m mb-5 sm:mb-12 text-center animate__animated animate__bounceInDown"
       >
@@ -88,6 +96,7 @@ definePageMeta({
 const toast = useToast();
 
 // data variables -----------------------------------------------------------------
+const loading: Ref<boolean> = ref(false);
 const userData: Ref<RegisterData> = ref({
   email: { value: "", errorMessage: "", suceedMessage: "" },
   password: { value: "", errorMessage: "", suceedMessage: "" },
@@ -138,6 +147,7 @@ const register = async () => {
   )
     return;
 
+  loading.value = true;
   await _register({
     email: userData.value.email.value,
     username: userData.value.email.value,
@@ -149,6 +159,9 @@ const register = async () => {
     })
     .catch((err) => {
       toast.error(err.response.data.username[0]);
+    })
+    .finally(() => {
+      loading.value = false;
     });
 };
 </script>
