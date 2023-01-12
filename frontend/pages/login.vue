@@ -60,6 +60,7 @@
 
 <script setup lang="ts">
 import type { Ref } from "vue";
+import { useToast } from "vue-toastification";
 
 import { useUser } from "@/stores/user";
 import { LoginData } from "@/constants/types";
@@ -70,6 +71,7 @@ definePageMeta({
 
 // plugin and composable variables -----------------------------------------------
 const user = useUser();
+const toast = useToast();
 
 // data variables -----------------------------------------------------------------
 const userData: Ref<LoginData> = ref({ email: "", password: "" });
@@ -90,10 +92,10 @@ const login = async () => {
   if (loading.value) return;
 
   // username and password should not be empty
-  // if (userData.value.username === "" || userData.value.password === "") {
-  //   toast.warning("نام کاربری یا رمز عبور خالی می باشد.", { timeout: 4000 });
-  //   return;
-  // }
+  if (userData.value.email === "" || userData.value.password === "") {
+    toast.warning("Email or Password may not be blank");
+    return;
+  }
 
   loading.value = true;
   // call api and handle userInfo for login
@@ -103,9 +105,12 @@ const login = async () => {
       password: userData.value.password,
     })
     .then((response) => {
+      toast.success("successfully loged in welcome!");
       navigateTo({ path: "/" });
     })
-    .catch();
+    .catch((err) => {
+      toast.error(err.response.data.non_field_errors[0]);
+    });
 
   loading.value = false;
 };

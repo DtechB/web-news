@@ -22,4 +22,5 @@ export default defineNuxtConfig({
     },
   },
   modules: ["@pinia/nuxt"],
+  plugins: ["@/plugins/vue-toast"],
 });
