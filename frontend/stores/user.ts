@@ -29,8 +29,8 @@ export const useUser = defineStore("user-store", {
         username: info.email,
         password: info.password,
       }).then(async (response) => {
-        this.setToken(response.data.result.auth_token);
-        await _getUser(response.data.result.auth_token).then((res) => {
+        this.setToken(response.data.auth_token);
+        await _getUser(response.data.auth_token).then((res) => {
           setUserId(res.data.id);
         });
       });

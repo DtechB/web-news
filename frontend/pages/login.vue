@@ -18,6 +18,7 @@
         type="text"
         placeholder="example@gmail.com"
         class="animate__animated animate__bounceInLeft"
+        @on-value-change="changeEmailValue"
       />
       <BaseTextInput
         inputName="password"
@@ -25,6 +26,7 @@
         type="password"
         placeholder="Password"
         class="mb-3 animate__animated animate__bounceInLeft"
+        @on-value-change="changePasswordValue"
       />
       <!------------ login or register buttons ------------>
       <div
@@ -34,6 +36,7 @@
           leftButtonText="Login"
           rightButtonText="Register"
           @on-right-button-click="navigateTo('/register')"
+          @on-leftt-button-click="login"
         />
       </div>
     </div>
@@ -56,7 +59,54 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from "vue";
+
+import { useUser } from "@/stores/user";
+import { LoginData } from "@/constants/types";
+
 definePageMeta({
   layout: "auth-layout",
 });
+
+// plugin and composable variables -----------------------------------------------
+const user = useUser();
+
+// data variables -----------------------------------------------------------------
+const userData: Ref<LoginData> = ref({ email: "", password: "" });
+const loading: Ref<boolean> = ref(false);
+
+// lifecycle hooks --------------------------------------------------------------
+
+// internall functions ----------------------------------------------------------
+const changeEmailValue = (email: string) => {
+  userData.value.email = email;
+};
+
+const changePasswordValue = (pass: string) => {
+  userData.value.password = pass;
+};
+
+const login = async () => {
+  if (loading.value) return;
+
+  // username and password should not be empty
+  // if (userData.value.username === "" || userData.value.password === "") {
+  //   toast.warning("نام کاربری یا رمز عبور خالی می باشد.", { timeout: 4000 });
+  //   return;
+  // }
+
+  loading.value = true;
+  // call api and handle userInfo for login
+  await user
+    .login({
+      email: userData.value.email,
+      password: userData.value.password,
+    })
+    .then((response) => {
+      navigateTo({ path: "/" });
+    })
+    .catch();
+
+  loading.value = false;
+};
 </script>

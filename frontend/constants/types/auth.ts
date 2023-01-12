@@ -20,3 +20,8 @@ export interface ApiRegisterData {
   username: string;
   password: string;
 }
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
