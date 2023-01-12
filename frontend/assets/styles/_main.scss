@@ -28,6 +28,12 @@
 
 body {
   color: white;
+  background-color: theme("colors.slate.900");
+}
+
+#__nuxt .antialiased {
+  color: white;
+  background-color: theme("colors.slate.900");
 }
 
 .overlay {
