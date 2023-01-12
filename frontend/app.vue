@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>Hello world</h1>
-    <h2>Hello world</h2>
-    <h3>Hello world</h3>
-    <h4>Hello world</h4>
-    <h5>Hello world</h5>
-    <h6>Hello world</h6>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
+    <div class="fixed bottom-0 right-0 w-full bg-slate-900 text-center p-2">
+      © Disigned and Developed by Danial Bayati
+    </div>
   </div>
 </template>
