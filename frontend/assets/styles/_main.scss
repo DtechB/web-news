@@ -48,3 +48,12 @@ body {
   background: rgba(30, 41, 59, 0.5);
   z-index: 20;
 }
+
+.main {
+  height: calc(100vh - 160px);
+  @screen sm {
+    & {
+      height: calc(100vh - 240px);
+    }
+  }
+}
