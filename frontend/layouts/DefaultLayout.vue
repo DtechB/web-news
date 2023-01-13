@@ -9,7 +9,7 @@
     <div class="container rounded-[40px] m-auto p-4 sm:p-[60px]">
       <LayoutTheHeader />
       <div
-        class="overflow-y-scroll main animate__animated animate__fadeIn mt-4"
+        class="overflow-y-scroll main animate__animated animate__fadeIn mt-4 scrollbar-hide"
       >
         <slot></slot>
       </div>
