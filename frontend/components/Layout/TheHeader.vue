@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full sticky top-4 sm:top-[60px] flex items-center justify-between z-10"
+    class="w-full sticky top-4 sm:top-8 flex items-center justify-between z-10"
   >
     <h1>Web News</h1>
     <div class="flex items-center">

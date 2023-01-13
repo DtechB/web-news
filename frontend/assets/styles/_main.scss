@@ -50,10 +50,10 @@ body {
 }
 
 .main {
-  height: calc(100vh - 160px);
+  height: calc(100vh - 135px);
   @screen sm {
     & {
-      height: calc(100vh - 240px);
+      height: calc(100vh - 215px);
     }
   }
 }

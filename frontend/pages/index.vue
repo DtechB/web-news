@@ -1,17 +1,8 @@
-<template>
-  <div>
-    <div class="h-60 bg-white mb-10"></div>
-    <div class="h-60 bg-white mb-10"></div>
-    <div class="h-60 bg-white mb-10"></div>
-    <div class="h-60 bg-white mb-10"></div>
-    <div class="h-60 bg-white mb-10"></div>
-    <div class="h-60 bg-white mb-10"></div>
-  </div>
-</template>
+<template></template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: "default-layout",
-  middleware: "auth",
+const router = useRouter();
+onBeforeMount(() => {
+  router.replace("/categories");
 });
 </script>
