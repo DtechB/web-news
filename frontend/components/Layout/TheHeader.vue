@@ -30,22 +30,22 @@
               class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
             >
               <ul class="relative bg-slate-900 p-3">
-                <li>
+                <li @click="navigateTo('/news/add')">
                   <BaseIcon name="plus" size="24px" class="mr-2" />
                   Add new post
                 </li>
                 <hr class="my-1 bg-slate-800 text-slate-800" />
-                <li>
+                <li @click="navigateTo('/news')">
                   <BaseIcon name="list" size="24px" class="mr-2" />
                   List of my news
                 </li>
                 <hr class="my-1 bg-slate-800 text-slate-800" />
-                <li>
+                <li @click="navigateTo('/categories')">
                   <BaseIcon name="edit" size="24px" class="mr-2" />
                   Edit category
                 </li>
                 <hr class="my-1 bg-slate-800 text-slate-800" />
-                <li class="text-red-500">
+                <li @click="logout" class="text-red-500">
                   <BaseIcon
                     name="logout"
                     size="24px"
@@ -63,6 +63,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Popover, PopoverButton, PopoverPanel } from "@headlessui/vue";
+
+import { useUser } from "@/stores/user";
+
+const user = useUser();
+
+const logout = () => {
+  user.logout();
+};
 </script>
