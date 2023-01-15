@@ -1,10 +1,26 @@
 <template>
   <div class="pt-0 animate__animated animate__fadeIn">
     <div
-      class="bg-slate-900 p-4 rounded-lg flex items-center mb-4 shadow-lg sticky top-0 z-20"
+      class="bg-slate-900 p-4 rounded-lg flex items-center gap-5 justify-center mb-4 shadow-lg sticky top-0 z-20 overflow-x-auto"
     >
-      <BaseIcon name="hint" color="orange" size="25px" />
-      <h6 class="ml-2 text-orange">You can select multiple categories</h6>
+      <div
+        v-for="category in categories"
+        :key="category.id"
+        class="py-1 px-2 transition-all duration-200 border-b-2 md:cursor-pointer"
+        :class="
+          selectedCategory === category.name
+            ? 'border-blue-400'
+            : 'border-transparent'
+        "
+        @click="selectCategory(category.name)"
+      >
+        <h4
+          class="font-light"
+          :class="{ 'text-blue-400': selectedCategory === category.name }"
+        >
+          {{ category.name }}
+        </h4>
+      </div>
     </div>
     <div class="grid grid-cols-2 justify-items-stretch gap-5">
       <NewsItem v-for="index in 10" :key="index" @click="isOpen = !isOpen" />
@@ -72,8 +88,21 @@ definePageMeta({
 });
 
 const isOpen: Ref<boolean> = ref(false);
+const selectedCategory: Ref<string> = ref("All");
+const categories = ref([
+  { id: 1, name: "All", iconName: "all" },
+  { id: 1, name: "Technology", iconName: "technology" },
+  { id: 2, name: "Economics", iconName: "economics" },
+  { id: 3, name: "Politics", iconName: "user" },
+  { id: 4, name: "Health", iconName: "health" },
+  { id: 5, name: "Sports", iconName: "sport" },
+]);
 
 const setIsOpen = (val: boolean) => {
   isOpen.value = val;
+};
+
+const selectCategory = (name: string) => {
+  selectedCategory.value = name;
 };
 </script>

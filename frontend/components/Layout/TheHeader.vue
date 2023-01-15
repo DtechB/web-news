@@ -29,7 +29,7 @@
             <div
               class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
             >
-              <ul class="relative bg-slate-900 p-3">
+              <ul class="relative bg-slate-900 p-6">
                 <li @click="navigateTo('/news/add')">
                   <BaseIcon name="plus" size="24px" class="mr-2" />
                   Add new post
