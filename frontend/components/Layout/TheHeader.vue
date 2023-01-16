@@ -4,7 +4,7 @@
   >
     <h1>Web News</h1>
     <div class="flex items-center">
-      <Popover class="relative ring-0 border-none">
+      <Popover class="relative ring-0 border-none" v-slot="{ close }">
         <PopoverButton as="div" class="ring-0 border-none">
           <BaseIcon
             name="menu"
@@ -29,7 +29,7 @@
             <div
               class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
             >
-              <ul class="relative bg-slate-900 p-6">
+              <ul class="relative bg-slate-900 p-6" @click="close">
                 <li @click="navigateTo('/news/add')">
                   <BaseIcon name="plus" size="24px" class="mr-2" />
                   Add new post

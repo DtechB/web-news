@@ -25,6 +25,7 @@
     "pinia": "^2.0.28",
     "sass": "^1.57.1",
     "tailwind-scrollbar-hide": "^1.1.7",
+    "vue-advanced-cropper": "^2.8.8",
     "vue-toastification": "^2.0.0-rc.5"
   }
 }
