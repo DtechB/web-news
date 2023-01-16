@@ -3,7 +3,7 @@
     <h3 v-if="title" class="mb-3 ml-6 font-m">{{ title }}</h3>
     <div class="relative">
       <input
-        :class="`dir-ltr w-full text-base sm:text-xl lg:text-2xl p-2 px-3 sm:px-6 sm:p-4 bg-transparent border-[3px] outline-none focus:border-blue-400 hover:border-blue-400 peer font-m rounded-full
+        :class="`dir-ltr w-full text-base sm:text-xl lg:text-2xl p-2 px-3 sm:px-6 sm:p-4 bg-transparent border-2 outline-none border-blue-300 focus:border-blue-400 hover:border-blue-400 peer font-m rounded-full
         ${errorMessage && 'border-red-500'}
         ${succeedMessage && 'border-emerald-500'}
         ${disabled && 'hover:cursor-not-allowed'}`"
