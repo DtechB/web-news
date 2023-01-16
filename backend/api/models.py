@@ -18,6 +18,7 @@ class New(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     body = models.TextField()
+    image = models.ImageField(upload_to='images', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     views = models.IntegerField(default=0)
