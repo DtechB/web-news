@@ -49,7 +49,7 @@
       "
     >
       <div
-        class="w-full border-2 border-blue-300 rounded-lg border-dashed p-4 text-center"
+        class="w-full border-2 border-blue-300 rounded-lg border-dashed p-4 py-10 text-center hover:bg-slate-800 md:cursor-pointer"
       >
         <img
           :src="
