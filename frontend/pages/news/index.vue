@@ -23,19 +23,26 @@
       </div>
     </div>
     <div class="grid grid-cols-2 justify-items-stretch gap-5">
-      <NewsItem v-for="index in 10" :key="index" @click="isOpen = !isOpen" />
+      <NewsItem
+        v-for="item in news"
+        :key="item.id"
+        @click="
+          isOpen = !isOpen;
+          selectedNew = item;
+        "
+      />
     </div>
     <BaseModal
       v-if="isOpen"
       :is-open="isOpen"
       @set-is-open="setIsOpen"
-      title="Web news test"
+      :title="selectedNew?.title!"
       footer
     >
       <template #body>
         <div class="relative">
           <img
-            src="@/assets/images/bg.jpg"
+            :src="selectedNew?.image"
             alt=""
             class="w-full md:mr-5 mb-4 md:mb-0 rounded-xl"
           />
@@ -43,26 +50,16 @@
             class="absolute top-0 right-0 bg-gradient-to-t from-black to-transparent w-full h-full flex flex-col justify-end rounded-xl"
           >
             <div class="flex items-center justify-between p-[2%]">
-              <h3 class="text-center">Web news test</h3>
+              <h3 class="text-center">{{ selectedNew?.title }}</h3>
               <div class="flex items-center bg-slate-800 rounded-full p-1 pr-3">
                 <BaseIcon name="technology" size="30px" />
-                <h6 class="ml-2">Technology</h6>
+                <h6 class="ml-2">{{ selectedNew?.category.name }}</h6>
               </div>
             </div>
           </div>
         </div>
         <h6 class="text-justify mt-4 font-light">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero quod
-          doloribus, officia esse in minus eius, illum perferendis magni ipsa
-          sunt sint molestias reprehenderit sed praesentium adipisci, maiores
-          nostrum sequi. Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Est dolorum obcaecati esse repellendus deleniti, neque molestiae
-          accusantium, enim, molestias reiciendis inventore quas placeat
-          corrupti repellat hic dolor atque pariatur excepturi. Lorem ipsum
-          dolor, sit amet consectetur adipisicing elit. Numquam inventore
-          eligendi obcaecati ratione earum corrupti eveniet, sit unde id nostrum
-          nesciunt voluptatum voluptatem sequi sunt necessitatibus, reiciendis
-          quam autem pariatur.
+          {{ selectedNew?.body }}
         </h6>
       </template>
       <template #footer>
@@ -72,6 +69,7 @@
             padding="0px 28px"
             right-icon-name="edit"
             background-icon-color="var(--color-blue-300)"
+            @on-click="navigateTo(`/news/${selectedNew?.id}`)"
           />
         </div>
       </template>
@@ -82,20 +80,33 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 
+import { getCategoryUser } from "@/api/category";
+import { getNews } from "@/api/news";
+import { NewsData } from "@/constants/types";
+
 definePageMeta({
   layout: "default-layout",
   middleware: "auth",
 });
 
+onBeforeMount(async () => {
+  await getCategories();
+  await getAllNews();
+});
+
+const loading = ref<boolean>(false);
 const isOpen: Ref<boolean> = ref(false);
+const userCategories = ref<number[]>([]);
+const news: Ref<NewsData[]> = ref([]);
 const selectedCategory: Ref<string> = ref("All");
+const selectedNew: Ref<NewsData | null> = ref(null);
 const categories = ref([
-  { id: 1, name: "All", iconName: "all" },
-  { id: 1, name: "Technology", iconName: "technology" },
-  { id: 2, name: "Economics", iconName: "economics" },
-  { id: 3, name: "Politics", iconName: "user" },
-  { id: 4, name: "Health", iconName: "health" },
-  { id: 5, name: "Sports", iconName: "sport" },
+  { id: 0, name: "All" },
+  { id: 1, name: "Technology" },
+  { id: 2, name: "Health" },
+  { id: 3, name: "Economics" },
+  { id: 4, name: "Sports" },
+  { id: 5, name: "Politics" },
 ]);
 
 const setIsOpen = (val: boolean) => {
@@ -104,5 +115,28 @@ const setIsOpen = (val: boolean) => {
 
 const selectCategory = (name: string) => {
   selectedCategory.value = name;
+};
+
+const getCategories = async () => {
+  loading.value = true;
+  await getCategoryUser()
+    .then((res) => {
+      userCategories.value = res.data.categories;
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const getAllNews = async () => {
+  await getNews().then((res) => {
+    userCategories.value.forEach((item) => {
+      res.data.forEach((data: any) => {
+        if (item === data.id) {
+          news.value.push(data);
+        }
+      });
+    });
+  });
 };
 </script>

@@ -36,12 +36,11 @@ export async function updateNew(newId: number, data: any) {
   });
 }
 
-export async function removeNew(newId: number, data: any) {
+export async function removeNew(newId: number) {
   const user = useUser();
   return await request({
     url: `api/news/${newId}`,
     method: "delete",
-    data,
     headers: {
       Authorization: `Token ${user.token}`,
     },

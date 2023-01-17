@@ -9,13 +9,15 @@ class UsersSerializer(serializers.ModelSerializer):
         fields = ['categories', 'email']
 
 
-class NewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.New
-        fields = '__all__'
-
-
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Category
+        fields = '__all__'
+
+
+class NewSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+
+    class Meta:
+        model = models.New
         fields = '__all__'
