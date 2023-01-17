@@ -27,7 +27,7 @@ export async function createNew(data: any) {
 export async function updateNew(newId: number, data: any) {
   const user = useUser();
   return await request({
-    url: `api/news/${newId}`,
+    url: `api/news/${newId}/`,
     method: "put",
     data,
     headers: {
@@ -39,7 +39,7 @@ export async function updateNew(newId: number, data: any) {
 export async function removeNew(newId: number) {
   const user = useUser();
   return await request({
-    url: `api/news/${newId}`,
+    url: `api/news/${newId}/`,
     method: "delete",
     headers: {
       Authorization: `Token ${user.token}`,

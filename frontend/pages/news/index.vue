@@ -22,14 +22,18 @@
         </h4>
       </div>
     </div>
-    <div class="grid grid-cols-2 justify-items-stretch gap-5">
+    <div
+      v-if="filteredNews.length === 0"
+      class="p-5 bg-slate-900 rounded-xl flex justify-center"
+    >
+      <h4>No data found</h4>
+    </div>
+    <div v-else class="grid grid-cols-2 justify-items-stretch gap-5">
       <NewsItem
-        v-for="item in news"
+        v-for="item in filteredNews"
         :key="item.id"
-        @click="
-          isOpen = !isOpen;
-          selectedNew = item;
-        "
+        :new-data="item"
+        @click="clickNew(item)"
       />
     </div>
     <BaseModal
@@ -81,7 +85,7 @@
 import type { Ref } from "vue";
 
 import { getCategoryUser } from "@/api/category";
-import { getNews } from "@/api/news";
+import { getNews, updateNew } from "@/api/news";
 import { NewsData } from "@/constants/types";
 
 definePageMeta({
@@ -98,6 +102,7 @@ const loading = ref<boolean>(false);
 const isOpen: Ref<boolean> = ref(false);
 const userCategories = ref<number[]>([]);
 const news: Ref<NewsData[]> = ref([]);
+const filteredNews: Ref<NewsData[]> = ref([]);
 const selectedCategory: Ref<string> = ref("All");
 const selectedNew: Ref<NewsData | null> = ref(null);
 const categories = ref([
@@ -137,6 +142,33 @@ const getAllNews = async () => {
         }
       });
     });
+    filteredNews.value = [...news.value];
   });
 };
+
+const clickNew = async (item: NewsData) => {
+  isOpen.value = !isOpen.value;
+  item.views += 1;
+  selectedNew.value = item;
+  await updateNew(selectedNew.value.id, {
+    category: selectedNew.value.category,
+    title: selectedNew.value.title,
+    slug: selectedNew.value.slug,
+    body: selectedNew.value.body,
+    views: selectedNew.value.views,
+  });
+};
+
+watch(
+  () => selectedCategory.value,
+  (val) => {
+    if (val === "All") {
+      filteredNews.value = [...news.value];
+    } else {
+      filteredNews.value = news.value.filter(
+        (item) => item.category.name === val
+      );
+    }
+  }
+);
 </script>

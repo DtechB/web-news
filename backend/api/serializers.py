@@ -16,7 +16,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class NewSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
+    category = CategorySerializer(read_only=True)
 
     class Meta:
         model = models.New
