@@ -28,6 +28,12 @@
 
 body {
   color: white;
+  background-color: theme("colors.slate.900");
+}
+
+#__nuxt .antialiased {
+  color: white;
+  background-color: theme("colors.slate.900");
 }
 
 .overlay {
@@ -41,4 +47,13 @@ body {
   align-items: center;
   background: rgba(30, 41, 59, 0.5);
   z-index: 20;
+}
+
+.main {
+  height: calc(100vh - 135px);
+  @screen sm {
+    & {
+      height: calc(100vh - 215px);
+    }
+  }
 }

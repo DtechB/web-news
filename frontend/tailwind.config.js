@@ -27,8 +27,12 @@ module.exports = {
       emerald: {
         500: "#10b981",
       },
+      orange: "orange",
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

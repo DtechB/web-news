@@ -1,7 +1,7 @@
 <template>
   <div
     class="BaseButton md:cursor-pointer transition-all xl:px-16 xl:py-4 lg:px-12 lg:py-3 px-8 py-2 rounded-full hover:scale-95"
-    :style="{ backgroundColor, padding, margin }"
+    :style="{ backgroundColor, padding: text ? padding : '16px', margin }"
     @click="$emit('onClick')"
   >
     <div class="flex items-center justify-center h-full">

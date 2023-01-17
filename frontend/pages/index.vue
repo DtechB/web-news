@@ -1,10 +1,8 @@
-<template>
-  <div>Hello</div>
-</template>
+<template></template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: "auth-layout",
-  middleware: ["auth"],
+const router = useRouter();
+onBeforeMount(() => {
+  router.replace("/categories");
 });
 </script>
