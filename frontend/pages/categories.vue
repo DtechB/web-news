@@ -4,8 +4,18 @@
       <BaseIcon name="hint" color="orange" size="25px" />
       <h6 class="ml-2 text-orange">You can select multiple categories</h6>
     </div>
-    <div class="bg-slate-900 rounded-xl py-[5%] shadow-xl">
-      <div class="grid grid-cols-6 gap-16 justify-items-center">
+    <div
+      class="bg-slate-900 rounded-xl py-[5%] shadow-xl relative min-h-[500px]"
+    >
+      <div v-if="loading" class="overlay rounded-[40px]">
+        <BaseIcon
+          name="loading"
+          size="80px"
+          color="var(--color-blue-300)"
+          class="animate-spin"
+        />
+      </div>
+      <div v-if="!loading" class="grid grid-cols-6 gap-16 justify-items-center">
         <div
           v-for="item in categories"
           :key="item.id"
@@ -24,24 +34,68 @@
         </div>
       </div>
       <div class="mt-2 flex justify-end px-[5%]">
-        <BaseButton text="update" />
+        <BaseButton text="update" @on-click="updateUserCategory" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { Ref } from "vue";
+import { useToast } from "vue-toastification";
+
+import { getCategoryUser, assiginCategoryToUser } from "@/api/category";
+
 definePageMeta({
   layout: "default-layout",
   middleware: "auth",
 });
 
+onMounted(async () => {
+  await getCategories();
+});
+
+const toast = useToast();
+
+const loading = ref<boolean>(false);
+const userCategories = ref<string[]>([]);
 const categories = ref([
   { id: 1, name: "Technology", iconName: "technology", active: false },
-  { id: 2, name: "Economics", iconName: "economics", active: false },
-  { id: 3, name: "Politics", iconName: "user", active: true },
-  { id: 4, name: "Health", iconName: "health", active: false },
-  { id: 5, name: "Sports", iconName: "sport", active: true },
+  { id: 2, name: "Health", iconName: "health", active: false },
+  { id: 3, name: "Economics", iconName: "economics", active: false },
+  { id: 4, name: "Sports", iconName: "sport", active: false },
+  { id: 5, name: "Politics", iconName: "user", active: false },
 ]);
+
+const getCategories = async () => {
+  loading.value = true;
+  await getCategoryUser()
+    .then((res) => {
+      userCategories.value = res.data.categories;
+      categories.value.forEach((item) => {
+        userCategories.value.forEach((cat) => {
+          if (item.id === parseInt(cat)) item.active = true;
+        });
+      });
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const updateUserCategory = async () => {
+  loading.value = true;
+  let data: number[] = [];
+  categories.value.forEach((item) => {
+    if (item.active) data.push(item.id);
+  });
+
+  await assiginCategoryToUser(data)
+    .then((res) => {
+      toast.success("categories successfully assign to user");
+      navigateTo("/news");
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
 </script>
