@@ -5,13 +5,13 @@ import { getToken, setToken, removeToken } from "@/utils/cookie-token";
 
 interface UserState {
   token: string | null;
-  userId: number | null;
+  userId: string | null;
 }
 
 export const useUser = defineStore("user-store", {
   state: (): UserState => ({
     token: getToken() || null,
-    userId: null,
+    userId: getUserId() || null,
   }),
 
   actions: {
@@ -19,7 +19,7 @@ export const useUser = defineStore("user-store", {
       this.token = token;
       setToken(token);
     },
-    setUserId(id: number) {
+    setUserId(id: string) {
       this.userId = id;
       setUserId(id.toString());
     },
