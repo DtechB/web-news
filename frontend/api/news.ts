@@ -12,6 +12,17 @@ export async function getNews() {
   });
 }
 
+export async function getSingleNew(newId: number) {
+  const user = useUser();
+  return await request({
+    url: `api/news/${newId}/`,
+    method: "get",
+    headers: {
+      Authorization: `Token ${user.token}`,
+    },
+  });
+}
+
 export async function createNew(data: any) {
   const user = useUser();
   return await request({
