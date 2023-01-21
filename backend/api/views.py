@@ -17,7 +17,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class NewViewSet(viewsets.ModelViewSet):
-    queryset = models.New.objects.all()
+    queryset = models.New.objects.order_by('-views').all()
     serializer_class = serializers.NewSerializer
 
 

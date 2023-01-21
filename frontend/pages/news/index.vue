@@ -93,9 +93,10 @@ definePageMeta({
   middleware: "auth",
 });
 
-onBeforeMount(async () => {
+onMounted(async () => {
   await getCategories();
   await getAllNews();
+  setInterval(getAllNews, 1000);
 });
 
 const loading = ref<boolean>(false);
@@ -135,8 +136,9 @@ const getCategories = async () => {
 
 const getAllNews = async () => {
   await getNews().then((res) => {
-    userCategories.value.forEach((item) => {
-      res.data.forEach((data: any) => {
+    news.value = [];
+    res.data.forEach((data: any) => {
+      userCategories.value.forEach((item) => {
         if (item === data.id) {
           news.value.push(data);
         }
@@ -167,6 +169,19 @@ watch(
     } else {
       filteredNews.value = news.value.filter(
         (item) => item.category.name === val
+      );
+    }
+  }
+);
+
+watch(
+  () => news.value,
+  (val) => {
+    if (selectedCategory.value === "All") {
+      filteredNews.value = [...news.value];
+    } else {
+      filteredNews.value = news.value.filter(
+        (item) => item.category.name === selectedCategory.value
       );
     }
   }
